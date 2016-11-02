@@ -1,0 +1,17 @@
+{
+  "manifest_version": 2,
+
+  "name": "Trello sum estimated",
+  "description": "This extension sum estimates for trello cards for each column",
+  "version": "1.0",
+
+  "permissions": [
+     "tabs", "https://trello.com/"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://trello.com/*"],
+      "js": ["jquery.js", "inject.js"]
+    }
+  ]
+}
