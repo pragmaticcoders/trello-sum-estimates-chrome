@@ -4,14 +4,14 @@
   "name": "Trello sum estimated",
   "description": "This extension sum estimates for trello cards for each column",
   "version": "1.0",
-
+  "options_page": "options.html",
   "permissions": [
-     "tabs", "https://trello.com/"
+     "tabs", "storage", "https://trello.com/"
   ],
   "content_scripts": [
     {
       "matches": ["https://trello.com/*"],
-      "js": ["jquery.js", "inject.js"]
+      "js": ["js/jquery.js", "js/moment.js", "js/bootstrap.js", "inject.js"]
     }
   ]
 }
