@@ -11,7 +11,7 @@
   "content_scripts": [
     {
       "matches": ["https://trello.com/*"],
-      "js": ["jquery.js", "moment.js", "inject.js"]
+      "js": ["js/jquery.js", "js/moment.js", "js/bootstrap.js", "inject.js"]
     }
   ]
 }

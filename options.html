@@ -1,15 +1,31 @@
 <!DOCTYPE html>
 <html>
-    <head><title>SuperTrello Options</title></head>
+    <head>
+        <title>SuperTrello Options</title>
+        <link rel="stylesheet" href="css/bootstrap.css" />
+    </head>
     <body>
-        <label for="team_size">Team size:</label>
-        <input type="number" id="team_size" />
-
-        <label for="team_size">Working hours:</label>
-        <input type="number" id="working_hours" />
-
-        <div id="status"></div>
-        <button id="save">Save</button>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <h2>SuperTrello options</h2>
+                    <form>
+                        <div class="form-group">
+                            <label for="team_size">Team size</label>
+                            <input type="number" class="form-control" id="team_size" />
+                        </div>
+                        <div class="form-group">
+                            <label for="working_hours">Working hours</label>
+                            <input type="number" class="form-control" id="working_hours" />
+                        </div>
+                        <div class="form-group">
+                            <div id="status" class="badge alert-success"></div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="save">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
 
         <script src="options.js"></script>
     </body>
