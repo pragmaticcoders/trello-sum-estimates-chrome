@@ -174,6 +174,7 @@ function countBurnedTime()
     burnedStat.insertAfter(searchTool);
     leftStat.insertAfter(searchTool);
     percentStat.insertAfter(searchTool);
+    jQuery('a.header-logo').hide();
 }
 
 function readSettings()
