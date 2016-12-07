@@ -52,13 +52,14 @@ function getWorkInProgressColumn()
 {
     var ret = null;
     if(SETTINGS.workInProgressColumnName.length === 0){ // Not configured feature
+        console.log('No WIP name configured');
         return null;
     }
 
     jQuery('.list-header-name-assist').each(function(){
         var header = jQuery(this);
         var headerName = header.html();
-	if(headerName === SETTINGS.workInProgressColumnName){
+	if($.trim(headerName) === SETTINGS.workInProgressColumnName){
             ret = header;
 	    return false; // break
         }
@@ -78,7 +79,7 @@ function getCurrentSprintColumn()
     var ret = null;
     jQuery('.list-header-name-assist').each(function(){
         var header = jQuery(this);
-        var headerName = header.html();
+        var headerName = $.trim(header.html());
         var sprintDates = getSprintDates(headerName);
 
         var fromDate = moment(sprintDates[0], 'DD.MM.YYYY');
@@ -95,6 +96,7 @@ function getCurrentSprintColumn()
 function getCurrentDoneColumn()
 {
     if(SETTINGS.doneColumnPrefix.length === 0){  // Not configured
+        console.log('No Done name configured');
         return null;
     }
 
@@ -154,6 +156,7 @@ function countBurnedTime()
     var workInProgressColumn = getWorkInProgressColumn();
     var doneColumn = getCurrentDoneColumn();
     if(currentSprintColumn === null || workInProgressColumn === null || doneColumn === null){
+        console.log('No column configured', currentSprintColumn, workInProgressColumn, doneColumn);
         return null;
     }
 
@@ -192,6 +195,25 @@ function readSettings()
     });
 }
 
+function startDOMWatch()
+{
+return;
+    //var whatToObserve = {childList: true, attributes: true, subtree: true, attributeOldValue: true, attributeFilter: ['class', 'style']};
+    var whatToObserve = {childList: true, subtree: true, characterData: true}; 
+    var mutationObserver = new MutationObserver(function(mutationRecords) {
+        console.log('mutated', mutationRecords);
+
+        countEstimates();
+	countBurnedTime();
+    });
+
+    var lists = $('.list-card-details');
+    lists.each(function(){
+        var el = $(this)[0];
+        mutationObserver.observe(el, whatToObserve);
+    });
+}
+
 function waitForTrelloInit()
 {
     // Read settings first - they are async so we have to poll for them also
@@ -209,6 +231,7 @@ function waitForTrelloInit()
             clearInterval(interval);
             countEstimates();
 	    countBurnedTime();
+            startDOMWatch();
         }
     }, 500);
 }
